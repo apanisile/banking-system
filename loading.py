@@ -20,16 +20,16 @@ def start():
 def load():
     t = 0
     while t < 4:
-        sys.stdout.write('\rloading |')
+        sys.stdout.write('\rLoading |')
         time.sleep(0.2)
-        sys.stdout.write('\rloading /')
+        sys.stdout.write('\rLoading /')
         time.sleep(0.2)
-        sys.stdout.write('\rloading -')
+        sys.stdout.write('\rLoading -')
         time.sleep(0.2)
-        sys.stdout.write('\rloading \\')
+        sys.stdout.write('\rLoading \\')
         time.sleep(0.2)
         t += 1
-    sys.stdout.write('\rDone!   \n')
+    sys.stdout.write('\r   \n')
 
 
 def checking():

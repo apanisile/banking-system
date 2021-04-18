@@ -1,5 +1,6 @@
 import account
 import loading
+import operations
 import sql
 
 
@@ -26,10 +27,10 @@ def register():
     last_name = input("Enter your last name: \n")
     email = input("Enter your email: \n")
     password = input("Enter your password: \n")
-
+    balance = 0
     account_number = account.generating_account_db()
-
-    is_user_created = sql.insert_details(account_number, first_name, last_name, email, password)
+    sql.init()
+    is_user_created = sql.insert_details(account_number, first_name, last_name, email, password, balance)
 
     if is_user_created:
         loading.load()
@@ -62,7 +63,7 @@ def login():
 
         if user:
             print(f"Welcome %s !" % sql.user_name(account_from_user))
-            bank_operations(user)
+            bank_operations(account_from_user)
         else:
             print("Wrong account number or password")
             login()
@@ -70,7 +71,7 @@ def login():
         init()
 
 
-def bank_operations(user):
+def bank_operations(account_from_user):
     loading.load()
     print("==========================================================")
     print("********** What would you like to do? *******************")
@@ -79,8 +80,19 @@ def bank_operations(user):
     print("> 2. Deposit")
     print("> 3. Request a Loan")
     print("> 4. View account profile")
-    input("\r ")
-
+    option = input("\r ")
+    loading.load()
+    if option == 1:
+        print("Withdraw")
+    elif option == 2:
+        print("Deposit")
+        operations.deposit(account_from_user)
+    elif option == 3:
+        print("Request a loan")
+    elif option == 4:
+        print("Account Profile")
+    else:
+        exit()
 
 # ACTUAL BANKING
 sql.init()

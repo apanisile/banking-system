@@ -1,22 +1,6 @@
 import mysql.connector
 import account
 
-"""def create_database():
-    db = pymysql.connect("localhost", "lala", "Apanisile123*", "python_test")
-    # prepare a cursor object using cursor() method
-    cursor = db.cursor()
-    # execute SQL query using execute() method.
-    cursor.execute("SELECT VERSION()")
-    # Fetch a single row using fetchone() method.
-    data = cursor.fetchone()
-    print("Database version : %s " % data)
-    # disconnect from server
-    db.close()
-
-
-create_database()
-"""
-
 database = "banking_system"
 
 
@@ -25,9 +9,8 @@ def init():
     mycursor = mydb.cursor()
     try:
         mycursor.execute(f"CREATE DATABASE {database}")
-        print("Database Created")
+        check_table()
     except:
-        print("Database exists")
         check_table()
 
 
@@ -37,7 +20,7 @@ def check_table():
     try:
         mycursor.execute(
             "CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY, account_number INT(10), first_name CHAR("
-            "50), last_name CHAR(50), email varchar(50), password char(50))")
+            "50), last_name CHAR(50), email varchar(50), password char(50), balance int(50))")
     except:
         # mycursor.execute("ALTER TABLE users ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY")
         return True
@@ -49,15 +32,15 @@ def connect():
     mycursor = mydb.cursor()
 
 
-def insert_details(account_number, first_name, last_name, email, password):
+def insert_details(account_number, first_name, last_name, email, password, balance):
     mydb = mysql.connector.connect(host="localhost", user="lala", password="Apanisile123*", database=database)
     mycursor = mydb.cursor()
 
-    sql = "INSERT INTO users (account_number, first_name, last_name, email, password) VALUES (%s, %s, %s, %s, %s)"
-    val = (f"{account_number}", f"{first_name}", f"{last_name}", f"{email}", f"{password}")
+    sql = "INSERT INTO users (account_number, first_name, last_name, email, password, balance) VALUES (%s, %s, %s, %s, %s, %s)"
+    val = (f"{account_number}", f"{first_name}", f"{last_name}", f"{email}", f"{password}", f"{balance}")
     mycursor.execute(sql, val)
     mydb.commit()
-    print(mycursor.rowcount, "record inserted.")
+    print("User registered.")
     return True
 
 
@@ -66,7 +49,6 @@ def locate_account(account_number):
     mycursor = mydb.cursor()
     mycursor.execute(f"SELECT account_number FROM users WHERE account_number = '{account_number}'")
     result = mycursor.fetchone()
-    int(result[0])
     if account_number == result[0]:
         return True
     else:
@@ -85,7 +67,7 @@ def locate_account_password(account_number, password):
         return False
 
 
-#locate_account_password(404491587, 1234)
+# locate_account_password(404491587, 1234)
 
 
 def user_name(account_number):
@@ -97,4 +79,25 @@ def user_name(account_number):
     return result[0]
 
 
-#user_name(404491587)
+def get_balance(account_number):
+    mydb = mysql.connector.connect(host="localhost", user="lala", password="Apanisile123*", database=database)
+    mycursor = mydb.cursor()
+
+    mycursor.execute(f"SELECT balance FROM users WHERE account_number = '{account_number}'")
+    result = mycursor.fetchone()
+    return (int(result[0]))
+
+def update_balance(new_balance):
+        mydb = mysql.connector.connect(host="localhost", user="lala", password="Apanisile123*", database=database)
+        mycursor = mydb.cursor()
+        account_to_update = int(input("Please enter account number to update: \n>"))
+
+        sql = "UPDATE users SET balance = %s WHERE account_number = %s"
+        val = (f"{new_balance}", f"{account_to_update}")
+        mycursor.execute(sql, val)
+
+        mydb.commit()
+        print("Deposited successfully")
+
+
+778796883

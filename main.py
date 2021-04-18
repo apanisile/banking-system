@@ -1,5 +1,6 @@
 import account
 import database
+import sql
 import validation
 import loading
 
@@ -27,12 +28,6 @@ def register():
     last_name = input("Enter your last name: \n")
     email = input("Enter your email: \n")
     password = input("Enter your password: \n")
-    if first_name == "":
-        if last_name == "":
-            if password == "":
-                if email == "":
-                    print("This Field is required")
-                    register()
 
     account_number = account.generating_account()
 
@@ -82,7 +77,11 @@ def bank_operations(user):
     print("==========================================================")
     print("********** What would you like to do? *******************")
     print("==========================================================")
-
+    print("> 1. Withdraw")
+    print("> 2. Deposit")
+    print("> 3. Request a Loan")
+    print("> 4. View account profile")
+    input("\r ")
 
 
 # ACTUAL BANKING

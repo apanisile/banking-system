@@ -36,7 +36,7 @@ def register():
         print("Registration Successful")
         print("========================================")
         print(f"Your account number is : {account_number}")
-        print(f"{first_name} {last_name} your account has been successful created!", sep=" ")
+        print(f"{first_name} {last_name}, your account has been successful created!", sep=" ")
         print("You can now login")
         login()
     else:
@@ -70,7 +70,7 @@ def bank_operations(user):
     print("==========================================================")
     print("********** What would you like to do? *******************")
     print("==========================================================")
-    print("Welcome %s" % user[1])
+    print("Welcome %s !" % user[1])
 
 
 # ACTUAL BANKING

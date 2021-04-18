@@ -36,8 +36,8 @@ def does_email_exist(email):
     print("Locating user email")
     all_users = os.listdir(db_path)
     for user in all_users:
-        user_list = str.split(read(user), ',')
-        if email in user_list:
+        #user_list = str.split(read(user), ',')
+        if email in user:
             return True
     return False
 
@@ -71,10 +71,14 @@ def delete(account_number):
 
 def read(account_number):
     print("Reading user data")
-    is_account_numbwe_valid = validation.account_number_validation(account_number)
+    is_account_number_valid = validation.account_number_validation(account_number)
     try:
-        # Open a file
-        f = open(db_path + str(account_number) + ".txt", "r+")
+        if is_account_number_valid:
+            # Open a file
+            f = open(db_path + str(account_number) + ".txt", "r")
+        else:
+            f = open(db_path + account_number + ".txt", "r")
+
     except FileNotFoundError:
         print("User Not Found")
     else:

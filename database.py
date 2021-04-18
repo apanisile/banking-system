@@ -1,27 +1,35 @@
 import os
 
+import validation
+
 db_path = "data/user_record/"
 
 
-def create(account_number, user_details):
+def create(account_number, first_name, last_name, email, password):
     print("Creating new user data")
     completion_state = False
+    user_details = first_name + "," + last_name + "," + email + "," + password
     if does_account_number_exist(account_number):
+        return False
+
+    if does_email_exist(email):
+        print("User already exists")
         return False
 
     try:
         f = open(db_path + str(account_number) + ".txt", "x")
 
     except FileExistsError:
-        print("User already exists")
-        delete(account_number)
+        does_file_contain_data = read(db_path + str(account_number) + ".txt")
+        if not does_file_contain_data:
+            delete(account_number)
 
     else:
         f.write(str(user_details))
         completion_state = True
     finally:
-        f.close()
-    return completion_state
+        f.close();
+        return completion_state
 
 
 def does_email_exist(email):
@@ -63,6 +71,7 @@ def delete(account_number):
 
 def read(account_number):
     print("Reading user data")
+    is_account_numbwe_valid = validation.account_number_validation(account_number)
     try:
         # Open a file
         f = open(db_path + str(account_number) + ".txt", "r+")

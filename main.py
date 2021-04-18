@@ -1,12 +1,13 @@
 import account
 import database
-import validation, os
+import validation
+import loading
 
 
 def init():
-    print("=======================================")
+    print("=======================================================")
     print("********** Apanisile Banking System *******************")
-    print("========================================")
+    print("=======================================================")
     print("Do you have an account with us? 1 (Yes) 2 (No)")
     answerable = int(input("> "))
     if answerable == 1:
@@ -26,12 +27,19 @@ def register():
     last_name = input("Enter your last name: \n")
     email = input("Enter your email: \n")
     password = input("Enter your password: \n")
+    if first_name == "":
+        if last_name == "":
+            if password == "":
+                if email == "":
+                    print("This Field is required")
+                    register()
 
     account_number = account.generating_account()
 
     is_user_created = database.create(account_number, first_name, last_name, email, password)
 
     if is_user_created:
+        loading.load()
         print("=======================================")
         print("Registration Successful")
         print("========================================")
@@ -41,6 +49,7 @@ def register():
         login()
     else:
         print("Something went wrong, please try again!")
+        loading.load()
         register()
 
 
@@ -54,10 +63,12 @@ def login():
 
     if is_valid_account_number:
         password = input("Enter your password: \n >")
+        loading.load()
+
         user = database.authenticated_user(account_from_user, password)
 
         if user:
-            print("Welcome! ")
+            print("Welcome %s !" % user[1])
             bank_operations(user)
         else:
             print("Wrong account number or password")
@@ -67,10 +78,11 @@ def login():
 
 
 def bank_operations(user):
+    loading.load()
     print("==========================================================")
     print("********** What would you like to do? *******************")
     print("==========================================================")
-    print("Welcome %s !" % user[1])
+
 
 
 # ACTUAL BANKING

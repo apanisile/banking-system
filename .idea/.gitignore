@@ -2,3 +2,9 @@
 /shelf/
 /workspace.xml
 /venv/
+/venv/*
+/.idea/*
+/data/*
+/v1.0/atm/*
+/__pycache__/*
+.gitignore

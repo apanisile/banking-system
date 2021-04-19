@@ -79,18 +79,24 @@ def bank_operations(account_from_user):
     print("> 1. Withdraw")
     print("> 2. Deposit")
     print("> 3. Request a Loan")
-    print("> 4. View account profile")
+    print("> 4. Update account profile")
     option = input("\r ")
     loading.load()
     if option == 1:
         print("Withdraw")
+        operations.withdraw(account_from_user)
+        bank_operations(account_from_user)
     elif option == 2:
         print("Deposit")
         operations.deposit(account_from_user)
+        bank_operations(account_from_user)
     elif option == 3:
         print("Request a loan")
+        print("Function not available!")
     elif option == 4:
         print("Account Profile")
+        operations.update_profile(account_from_user)
+        bank_operations(account_from_user)
     else:
         exit()
 

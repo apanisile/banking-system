@@ -125,3 +125,6 @@ class update():
         mycursor.execute(sql, val)
         mydb.commit()
         print("First name Updated")
+
+
+init()

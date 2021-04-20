@@ -86,6 +86,7 @@ def bank_operations(account_from_user):
     print("> 2. Deposit")
     print("> 3. Request a Loan")
     print("> 4. Update account profile")
+    print("> 5. Exit")
     option = int(input("> "))
     if option == 1:
         loading.load()
@@ -106,8 +107,13 @@ def bank_operations(account_from_user):
         print("Account Profile")
         operations.update_profile(account_from_user)
         bank_operations(account_from_user)
+    elif option == 5:
+        loading.load()
+        exit(1)
     else:
-        exit()
+        print("Invalid option")
+        exit(0)
+
 
 # ACTUAL BANKING
 init()

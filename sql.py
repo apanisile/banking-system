@@ -1,6 +1,5 @@
 import mysql.connector
 
-
 database = "banking_system"
 
 
@@ -29,7 +28,8 @@ def insert_details(account_number, first_name, last_name, email, password, balan
     mydb = mysql.connector.connect(host="localhost", user="lala", password="Apanisile123*", database=database)
     mycursor = mydb.cursor()
 
-    sql = "INSERT INTO users (account_number, first_name, last_name, email, password, balance) VALUES (%s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO users (account_number, first_name, last_name, email, password, balance) VALUES (%s, %s, %s, " \
+          "%s, %s, %s) "
     val = (f"{account_number}", f"{first_name}", f"{last_name}", f"{email}", f"{password}", f"{balance}")
     mycursor.execute(sql, val)
     mydb.commit()

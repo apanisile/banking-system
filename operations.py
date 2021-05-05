@@ -2,7 +2,6 @@ import loading
 import sql
 
 
-
 def deposit(account_from_user):
     amount_to_deposit = int(input("How much would you like to deposit: \n >"))
     balance = sql.get_balance(account_from_user)
@@ -10,7 +9,6 @@ def deposit(account_from_user):
     sql.update_balance(account_from_user, new_balance)
     print(f"Your new balance is: {new_balance}")
     print("Deposited...")
-
 
 
 def withdraw(account_from_user):
@@ -33,9 +31,9 @@ def update_profile(account_from_user):
     print("> 1. First Name")
     print("> 2. Last Name")
     print("> 3. Email")
+    print("> 4. Delete Account")
     option = int(input("> "))
     loading.load()
-    print("Location 2")
     if option == 1:
         first_name = input("What would you like to change your first name to?")
         sql.update.update_fname(account_from_user, first_name)
@@ -48,8 +46,9 @@ def update_profile(account_from_user):
         email = input("What would you like to change your email to?")
         sql.update.update_fname(account_from_user, email)
         print(f"Your new First name is : {email}")
+    elif option == 4:
+        loading.load()
+        sql.delete_user(account_from_user)
     else:
         print("Invalid option")
         update_profile(account_from_user)
-
-

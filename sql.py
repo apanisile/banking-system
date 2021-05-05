@@ -1,5 +1,8 @@
 import mysql.connector
 
+import loading
+import main2
+
 database = "banking_system"
 
 
@@ -92,6 +95,26 @@ def update_balance(account_number, new_balance):
     mycursor.execute(sql, val)
     mydb.commit()
     print("Done")
+
+
+def delete_user(account_number):
+    mydb = mysql.connector.connect(host="localhost", user="lala", password="Apanisile123*", database=database)
+    mycursor = mydb.cursor()
+    confirm_delete = input("Are you sure you want to delete your account? 1 (Yes) 2 (No) \n >")
+    if confirm_delete == 1:
+        sql = "DELETE FROM users WHERE account_number = %s"
+        print("Account Deleted!")
+        loading.load()
+        print("Thank you for banking with us!")
+        loading.load()
+        print("Bye!")
+        exit(1)
+    elif confirm_delete == 2:
+        print("Alright!")
+        main2.bank_operations()
+    else:
+        print("Wrong input! \n Please try again")
+        delete_user(account_number)
 
 
 class update():

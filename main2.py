@@ -13,11 +13,16 @@ def init():
     try:
         answerable = int(input("> "))
         if answerable == 1:
+            loading.load()
+            operations.clear()
             login()
         elif answerable == 2:
+            loading.load()
+            operations.clear()
             register()
         else:
             print("Invalid Response!")
+            loading.load()
             init()
     except ValueError:
         print("You need to select an option")
@@ -71,12 +76,13 @@ def login():
         
        
         if user:
+            operations.clear()
+            loading.load()
             print(f"Welcome %s !" % sql.user_name(account_from_user))
             bank_operations(account_from_user)
         else:
             print("Wrong account number or password")
-            #remove this line later
-            print(f"username: {account_from_user} {password}")
+            operations.clear()
             login()
     else:
         init()
@@ -84,6 +90,7 @@ def login():
 
 def bank_operations(account_from_user):
     loading.load()
+    operations.clear()
     print("==========================================================")
     print("********** What would you like to do? *******************")
     print("==========================================================")
@@ -109,7 +116,7 @@ def bank_operations(account_from_user):
         loading.load()
         print("Request a loan")
         print("Function not available!")
-        loading.load()
+        loading.load()      
     elif option == 4:
         loading.load()
         print("Account Profile")
@@ -118,7 +125,7 @@ def bank_operations(account_from_user):
         bank_operations(account_from_user)
     elif option == 5:
         loading.load()
-        exit(1)
+        exit(0)
     else:
         print("Invalid option")
         exit(0)

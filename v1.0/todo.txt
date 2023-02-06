@@ -1,13 +1,11 @@
-Finish up database
+Finish up database ✅
 Things to Add
-    - deposit
-    - withdraw
+    - deposit ✅
+    - withdraw ✅
 
-check user details
-delete user
-update info
-wxpython
+check user details ✅
+delete user  ✅
+update info ✅
+wxpython 
     -uploading profile pictures
 
-#deposit(778796883)
-#withdraw(786572687)

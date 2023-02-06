@@ -42,14 +42,13 @@ def insert_details(account_number, first_name, last_name, email, password, balan
     return True
 
 def locate_account(account_number):
-    # mydb = mysql.connector.connect(host="localhost", user="lala", password="Apanisile123*", database=database)
     mydb = psycopg2.connect(database="bankin_system",
                             host="localhost", user="ifeoluwa", password="ifeoluwa")
     mycursor = mydb.cursor()
     mycursor.execute(f"SELECT account_number FROM users WHERE account_number = '{account_number}'")
-    result = mycursor.fetchone()
+    result = mycursor.fetchone()[0]
     try:
-        if account_number == result[0]:
+        if account_number == result:
             return True
         else:
             return False
@@ -112,7 +111,9 @@ def delete_user(account_number):
     mycursor = mydb.cursor()
     confirm_delete = int(input("Are you sure you want to delete your account? 1 (Yes) 2 (No) \n >"))
     if confirm_delete == 1:
-        sql = "DELETE FROM users WHERE account_number = %s"
+        mycursor.execute(
+            f"DELETE FROM users WHERE account_number= '{account_number}'")
+        mydb.commit()
         print("Account Deleted!")
         loading.load()
         print("Thank you for banking with us!")
@@ -121,7 +122,7 @@ def delete_user(account_number):
         exit(0)
     elif confirm_delete == 2:
         print("Alright!")
-        main2.bank_operations()
+        main2.bank_operations(account_number)
     else:
         print("Wrong input! \n Please try again")
         delete_user(account_number)
@@ -163,7 +164,7 @@ class update():
         val = (f"{email}", f"{account_number}")
         mycursor.execute(sql, val)
         mydb.commit()
-        print("First name Updated")
+        print("Email name Updated")
 
 
 init()

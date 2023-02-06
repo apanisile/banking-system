@@ -1,3 +1,4 @@
+from os import name, system
 import loading
 import sql
 
@@ -40,15 +41,25 @@ def update_profile(account_from_user):
         print(f"Your new First name is : {first_name}")
     elif option == 2:
         last_name = input("What would you like to change your last name to?")
-        sql.update.update_fname(account_from_user, last_name)
+        sql.update.update_lname(account_from_user, last_name)
         print(f"Your new last name is : {last_name}")
     elif option == 3:
         email = input("What would you like to change your email to?")
-        sql.update.update_fname(account_from_user, email)
-        print(f"Your new First name is : {email}")
+        sql.update.update_email(account_from_user, email)
+        print(f"Your new email is : {email}")
     elif option == 4:
         loading.load()
         sql.delete_user(account_from_user)
     else:
         print("Invalid option")
         update_profile(account_from_user)
+
+
+def clear():
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+ 
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')

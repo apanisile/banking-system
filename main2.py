@@ -46,6 +46,7 @@ def register():
         print(f"{first_name} {last_name}, your account has been successful created!", sep=" ")
         print("You can now login")
         login()
+        # bank_operations(account_number)
     else:
         print("Something went wrong, please try again!")
         loading.load()
@@ -64,14 +65,18 @@ def login():
     if is_valid_account_number:
         password = getpass("Enter your password: \n >")
         loading.load()
-
+        
         user = sql.locate_account_password(account_from_user, password)
-
+        print("User entered")
+        
+       
         if user:
             print(f"Welcome %s !" % sql.user_name(account_from_user))
             bank_operations(account_from_user)
         else:
             print("Wrong account number or password")
+            #remove this line later
+            print(f"username: {account_from_user} {password}")
             login()
     else:
         init()
@@ -92,20 +97,24 @@ def bank_operations(account_from_user):
         loading.load()
         print("Withdraw")
         operations.withdraw(account_from_user)
+        loading.load()
         bank_operations(account_from_user)
     elif option == 2:
         loading.load()
         print("Deposit")
         operations.deposit(account_from_user)
+        loading.load()
         bank_operations(account_from_user)
     elif option == 3:
         loading.load()
         print("Request a loan")
         print("Function not available!")
+        loading.load()
     elif option == 4:
         loading.load()
         print("Account Profile")
         operations.update_profile(account_from_user)
+        loading.load()
         bank_operations(account_from_user)
     elif option == 5:
         loading.load()
